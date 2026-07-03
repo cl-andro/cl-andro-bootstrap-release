@@ -1,13 +1,13 @@
 #!/bin/bash
 set -e
-echo "Forging Developer Sysroot..."
+echo "Forging Essential Sysroot..."
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 REPO_DIR="$SCRIPT_DIR/cl-andro-packages-repo"
-WORK_DIR="$SCRIPT_DIR/developer-work"
+WORK_DIR="$SCRIPT_DIR/essential-work"
 OUTPUT_ZIP="$SCRIPT_DIR/bootstrap-aarch64.zip"
 
-# Package names to include in the bootstrap zip
+# Essential package names (no version/arch suffixes)
 ESSENTIALS=(
   # Base / Runtime
   ndk-sysroot libc++ libandroid-support libandroid-glob libbz2 liblzma
@@ -32,14 +32,12 @@ ESSENTIALS=(
   # Misc tools
   dialog termux-tools nano file make db fdisk mount-utils uuid-utils blk-utils
   sqlite libsqlite c-ares libuv
-  # Developer Tools (Added to bring size to ~100MB-120MB and provide full environment)
-  git python python-ensurepip-wheels nodejs wget vim tmux dropbear htop jq termux-auth libedit libpopt libsodium luajit
 )
 
 rm -rf "$WORK_DIR"
 mkdir -p "$WORK_DIR"
 
-echo "Copying developer .deb files..."
+echo "Copying essential .deb files..."
 for deb in "$REPO_DIR"/*.deb; do
     pkg=$(dpkg-deb --field "$deb" Package 2>/dev/null)
     for want in "${ESSENTIALS[@]}"; do
