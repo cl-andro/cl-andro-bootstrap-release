@@ -59,6 +59,9 @@ jobs:
             # Misc tools
             dialog clandro-tools nano file make db fdisk mount-utils uuid-utils blk-utils
             sqlite libsqlite c-ares libuv
+            # Extra Developer Tools (User requested size increase)
+            git curl openssh openssh-sftp-server krb5 ldns libedit termux-auth
+            tmux vim libsodium zsh libcap python libexpat gdbm termux-tools
           )
           
           rm -rf "$WORK_DIR"
