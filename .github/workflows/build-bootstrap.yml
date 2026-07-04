@@ -44,7 +44,7 @@ jobs:
             libiconv ncurses ncurses-ui-libs ncurses-utils readline
             # Crypto / Network
             ca-certificates zlib openssl openssl-tool libssh2 libnghttp2 libnghttp3
-            brotli libngtcp2 libcurl resolv-conf libtalloc
+            brotli libngtcp2 libcurl resolv-conf libtalloc libevent
             # CL-Andro Core
             clandro-core clandro-exec clandro-am clandro-am-socket
             # APT & Package Management
@@ -113,6 +113,10 @@ jobs:
           mkdir -p sysroot/data/data/com.zk.clandro/files/usr/tmp
           mkdir -p sysroot/data/data/com.zk.clandro/files/usr/var/log/apt
           mkdir -p sysroot/data/data/com.zk.clandro/files/usr/etc/ssl/certs
+          
+          echo "Writing default apt.conf..."
+          echo 'Acquire::https::CACertificate "/data/data/com.zk.clandro/files/usr/etc/tls/cert.pem";' > sysroot/data/data/com.zk.clandro/files/usr/etc/apt/apt.conf
+          echo 'Dir::Bin::gpgv "/data/data/com.zk.clandro/files/usr/bin/gpgv";' >> sysroot/data/data/com.zk.clandro/files/usr/etc/apt/apt.conf
           
           echo "Adding CA cert symlink to SYMLINKS.txt..."
           echo "etc/ssl/certs/ca-certificates.crt←/data/data/com.zk.clandro/files/usr/etc/tls/cert.pem" >> SYMLINKS.txt
