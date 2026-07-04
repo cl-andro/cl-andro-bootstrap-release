@@ -119,6 +119,7 @@ jobs:
           
           echo "Writing default apt.conf..."
           echo 'Acquire::https::CACertificate "/data/data/com.zk.clandro/files/usr/etc/tls/cert.pem";' > sysroot/data/data/com.zk.clandro/files/usr/etc/apt/apt.conf
+          echo 'Acquire::https::CAInfo "/data/data/com.zk.clandro/files/usr/etc/tls/cert.pem";' >> sysroot/data/data/com.zk.clandro/files/usr/etc/apt/apt.conf
           echo 'Dir::Bin::gpgv "/data/data/com.zk.clandro/files/usr/bin/gpgv";' >> sysroot/data/data/com.zk.clandro/files/usr/etc/apt/apt.conf
           
           echo "Adding CA cert symlink to SYMLINKS.txt..."
