@@ -138,10 +138,11 @@ jobs:
 
       - name: Calculate Next Version Tag
         env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Fetch the latest release tag using GitHub CLI
-          LATEST_TAG=$(gh release view --json tagName --template '{{.tagName}}' 2>/dev/null || echo "v1.0")
+          LATEST_TAG=$(cd "$RUNNER_TEMP" && gh release view --repo ${{ github.repository }} --json tagName --template '{{.tagName}}' 2>/dev/null || echo "v1.0")
           echo "Latest tag found: $LATEST_TAG"
           
           # Strip the leading 'v'
